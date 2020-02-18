@@ -9,6 +9,7 @@ import Repo from './components/Repo';
 
 function App() {
   const alphaExp = /^[a-zA-Z-0-9]+$/;
+  const RegExp = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
 
   const [entrada, setEntrada] = useState("");
   const [repositorios, setRepositorios] = useState([]);
@@ -33,11 +34,8 @@ function App() {
   const handleKeyPressInput = event => {
     if (event.key === "Enter") {
       if (entrada.trim() !== ''
-        && entrada.length - 1 < 39
-        && entrada[0] !== '-'
-        && entrada[entrada.length - 1] !== '-'
-        && entrada.match(alphaExp)
-        && getQuantideHifen() < 2) {
+        && entrada.match(RegExp)
+      ) {
         console.log("pressionou enter")
 
         getUsers(entrada)
@@ -68,6 +66,46 @@ function App() {
       }
     }
   }
+
+
+  // const handleKeyPressInput = event => {
+  //   if (event.key === "Enter") {
+  //     if (entrada.trim() !== ''
+  //       && entrada.length - 1 < 39
+  //       && entrada[0] !== '-'
+  //       && entrada[entrada.length - 1] !== '-'
+  //       && entrada.match(alphaExp)
+  //       && getQuantideHifen() < 2) {
+  //       console.log("pressionou enter")
+
+  //       getUsers(entrada)
+  //         .then(json => {
+  //           console.log(json);
+  //           if (json.message === 'Not Found') {
+  //             setResultado("NOT");
+  //             console.log('not');
+  //             setRepositorios([]);
+  //           } else if (json.length === 0) {
+  //             setResultado("EMPTY");
+  //             console.log('empty');
+  //             setRepositorios([]);
+  //           } else {
+  //             setResultado("FIND");
+  //             console.log('find');
+  //             setRepositorios(json);
+  //           }
+
+  //         })
+  //         .catch(e => {
+  //           console.log("Erro", e);
+  //           setRepositorios([]);
+  //           setResultado("");
+  //         });
+  //     } else {
+  //       console.log("Não validou");
+  //     }
+  //   }
+  // }
 
   return (
     <div className="App">
